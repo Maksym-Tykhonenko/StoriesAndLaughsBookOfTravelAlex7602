@@ -505,7 +505,9 @@ const Storiesandlghstrvstack = () => {
     const currentData = new Date(); //текущая дата
 
     if (currentData <= targetData) {
+      setCompleteLink(true);
       setRoute(false);
+      
       return;
     }
 
