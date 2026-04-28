@@ -39,6 +39,7 @@
 		4C73FC133042498C8630E54F /* Cormorant-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cormorant-Italic.ttf"; path = "../assets/f/Cormorant-Italic.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-StoriesAndLaughsBookOfTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoriesAndLaughsBookOfTravel.release.xcconfig"; path = "Target Support Files/Pods-StoriesAndLaughsBookOfTravel/Pods-StoriesAndLaughsBookOfTravel.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-StoriesAndLaughsBookOfTravel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StoriesAndLaughsBookOfTravel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60F2BFB62FA0CD9F00182B92 /* StoriesAndLaughsBookOfTravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = StoriesAndLaughsBookOfTravel.entitlements; path = StoriesAndLaughsBookOfTravel/StoriesAndLaughsBookOfTravel.entitlements; sourceTree = "<group>"; };
 		662FD226F639417DA2B2DFCC /* Commissioner-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-Regular.ttf"; path = "../assets/f/Commissioner-Regular.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = StoriesAndLaughsBookOfTravel/AppDelegate.swift; sourceTree = "<group>"; };
 		7FE0E422D6984FE484AE540E /* Cormorant-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cormorant-Bold.ttf"; path = "../assets/f/Cormorant-Bold.ttf"; sourceTree = "<group>"; };
@@ -68,6 +69,7 @@
 		13B07FAE1A68108700A75B9A /* StoriesAndLaughsBookOfTravel */ = {
 			isa = PBXGroup;
 			children = (
+				60F2BFB62FA0CD9F00182B92 /* StoriesAndLaughsBookOfTravel.entitlements */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -251,9 +253,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StoriesAndLaughsBookOfTravel/Pods-StoriesAndLaughsBookOfTravel-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StoriesAndLaughsBookOfTravel/Pods-StoriesAndLaughsBookOfTravel-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -290,9 +296,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StoriesAndLaughsBookOfTravel/Pods-StoriesAndLaughsBookOfTravel-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StoriesAndLaughsBookOfTravel/Pods-StoriesAndLaughsBookOfTravel-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -319,6 +329,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = StoriesAndLaughsBookOfTravel/StoriesAndLaughsBookOfTravel.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = StoriesAndLaughsBookOfTravel/Info.plist;
@@ -347,6 +358,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = StoriesAndLaughsBookOfTravel/StoriesAndLaughsBookOfTravel.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = StoriesAndLaughsBookOfTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -436,10 +448,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -508,10 +517,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
