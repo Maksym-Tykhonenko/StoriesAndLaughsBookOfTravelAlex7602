@@ -52,13 +52,14 @@ const Storiesandlghstrvstack = () => {
   console.log('idfv==>', idfv);
   const [uid, setUid] = useState(null);
   console.log('uid==>', uid);
+  const pushOpenWebviewRef = useRef(false);
 
   const INITIAL_URL = `https://brisk-zone-plus.site/`;
   const URL_IDENTIFAIRE = `mGYPpsAN`;
 
   const ONESIGNAL_KEY = `977a79ba-23ee-4b34-bad3-c9fae2f33e55`;
 
-  const TARGET_DATA = new Date(2026, 3, 18, 8, 8, 0);
+  const TARGET_DATA = new Date(2026, 3, 30, 8, 8, 0);
 
   const FATCH_TO_OUR_BACK = `https://bright-route.site/`;
 
@@ -81,7 +82,7 @@ const Storiesandlghstrvstack = () => {
     };
 
     finalizeProcess();
-  }, [isDataReady, uid]); // Викликати, коли isDataReady або uid змінюється
+  }, [isDataReady, uid, pushOpenWebview]); // Викликати, коли isDataReady або uid змінюється
 
   // uniq_visit
   const checkUniqVisit = async () => {
@@ -133,13 +134,15 @@ const Storiesandlghstrvstack = () => {
         setAtribParam(parsedData.atribParam);
         setAdServicesAtribution(parsedData.adServicesAtribution);
         setCheckAsaData(parsedData.checkAsaData);
-        setCompleteLink(parsedData.completeLink);
-        setFinalLink(parsedData.finalLink);
+        //setCompleteLink(parsedData.completeLink);
+        //setFinalLink(parsedData.finalLink);
         setCloacaPass(parsedData.cloacaPass);
         setCustomUserAgent(parsedData.customUserAgent);
         setIdfa(parsedData.idfa ?? null);
         setIdfv(parsedData.idfv ?? null);
         setAceptTransperency(parsedData.aceptTransperency ?? false);
+        setUid(parsedData.uid);
+        setIsDataReady(parsedData.isDataReady);
 
         //await performAppsFlyerOperationsContinuously();
       } else {
@@ -177,13 +180,15 @@ const Storiesandlghstrvstack = () => {
         sab1,
         atribParam,
         adServicesAtribution,
-        finalLink,
-        completeLink,
+        //finalLink,
+        //completeLink,
         checkAsaData,
         cloacaPass,
         customUserAgent,
         idfa,
         aceptTransperency,
+        uid,
+        isDataReady
       };
       const jsonData = JSON.stringify(data);
       await AsyncStorage.setItem('App', jsonData);
@@ -203,13 +208,15 @@ const Storiesandlghstrvstack = () => {
     sab1,
     atribParam,
     adServicesAtribution,
-    finalLink,
-    completeLink,
+    //finalLink,
+    //completeLink,
     checkAsaData,
     cloacaPass,
     customUserAgent,
     idfa,
     aceptTransperency,
+    uid,
+    isDataReady
   ]);
 
   const fetchAdServicesAttributionData = async () => {
@@ -429,38 +436,45 @@ const Storiesandlghstrvstack = () => {
     // Додаємо слухач подій
     const handleNotificationClick = async event => {
       if (pushOpenWebViewOnce.current) {
-        // Уникаємо повторної відправки івента
         return;
       }
 
-      let storedTimeStampUserId = await AsyncStorage.getItem('timeStampUserId');
-      //console.log('storedTimeStampUserId', storedTimeStampUserId);
+      pushOpenWebViewOnce.current = true;
 
-      // Виконуємо fetch тільки коли timeStampUserId є
-      if (event.notification.launchURL) {
+      try {
+        const storedTimeStampUserId = await AsyncStorage.getItem('timeStampUserId');
+
+        // ВАЖЛИВО: ref оновлюється одразу, state — ні
+        pushOpenWebviewRef.current = true;
         setPushOpenWebview(true);
-        fetch(
-          `${INITIAL_URL}${URL_IDENTIFAIRE}?utretg=push_open_browser&jthrhg=${storedTimeStampUserId}`,
-        );
-        //console.log('Івент push_open_browser OneSignal');
-        //console.log(
-        //  `${INITIAL_URL}${URL_IDENTIFAIRE}?utretg=push_open_browser&jthrhg=${storedTimeStampUserId}`,
-        //);
-      } else {
-        setPushOpenWebview(true);
-        fetch(
-          `${INITIAL_URL}${URL_IDENTIFAIRE}?utretg=push_open_webview&jthrhg=${storedTimeStampUserId}`,
-        );
-        //console.log('Івент push_open_webview OneSignal');
-        //console.log(
-        //  `${INITIAL_URL}${URL_IDENTIFAIRE}?utretg=push_open_webview&jthrhg=${storedTimeStampUserId}`,
-        //);
+
+        // Якщо лінка вже була готова — скидаємо, щоб перегенерувати з yhugh=true
+        setCompleteLink(false);
+
+        const eventName = event?.notification?.launchURL
+          ? 'push_open_browser'
+          : 'push_open_webview';
+
+        const pushEventUrl = `${INITIAL_URL}${URL_IDENTIFAIRE}?utretg=${eventName}&jthrhg=${storedTimeStampUserId || ''
+          }`;
+
+        console.log('OneSignal push event url =>', pushEventUrl);
+
+        fetch(pushEventUrl).catch(error => {
+          console.log('Push event fetch error =>', error);
+        });
+
+        // Якщо всі дані вже готові — одразу перегенеруємо лінку
+        if (isDataReady && uid) {
+          await generateLink(true);
+        }
+      } catch (error) {
+        console.log('handleNotificationClick error =>', error);
+      } finally {
+        setTimeout(() => {
+          pushOpenWebViewOnce.current = false;
+        }, 2500);
       }
-
-      pushOpenWebViewOnce.current = true; // Блокування повторного виконання
-      setTimeout(() => {
-        pushOpenWebViewOnce.current = false; // Зняття блокування через певний час
-      }, 2500); // Затримка, щоб уникнути подвійного кліку
     };
 
     OneSignal.Notifications.addEventListener('click', handleNotificationClick);
@@ -531,7 +545,7 @@ const Storiesandlghstrvstack = () => {
   }, [isDataReady, route, cloacaPass]);
 
   ///////// Generate link
-  const generateLink = async () => {
+  const generateLink = async (openedFromPush = false) => {
     
 
     try {
@@ -555,10 +569,12 @@ const Storiesandlghstrvstack = () => {
       }`;
       //&checkData=${checkAsaData}
       console.log('additionalParams====>', additionalParams);
+
+      const shouldAddPushParam = openedFromPush || pushOpenWebviewRef.current;
+
       // Формування фінального лінку
-      const product = `${baseUrl}&${additionalParams}${
-        pushOpenWebview ? `&yhugh=${pushOpenWebview}` : ''
-      }`;
+      const product = `${baseUrl}&${additionalParams}${shouldAddPushParam ? '&yhugh=true' : ''
+        }`;
       //(!addPartToLinkOnce ? `&yhugh=true` : ''); pushOpenWebview && '&yhugh=true'
       console.log('Фінальна лінка сформована');
 

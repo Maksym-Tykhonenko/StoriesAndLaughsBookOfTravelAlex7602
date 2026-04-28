@@ -18,7 +18,8 @@ import sha256 from 'sha256';
 const ProductScreen = ({navigation, route}) => {
   const [product, setProduct] = useState(route.params?.product);
   console.log('My product Url in WebView==>', product);
-  const [uid, setUid] = useState(route.params?.uid);
+    const [uid, setUid] = useState(route.params?.uid);
+    console.log('UID', uid)
   const [customUserAgent, setCustomUserAgent] = useState(
     route.params?.customUserAgent,
   );
