@@ -93,13 +93,13 @@ const storiesandlghstravlLoaderHTML = `
 const Storiesandlghstravlload = () => {
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const storiesandlghstravlTimer = setTimeout(() => {
-      navigation.navigate('Storiesandlghstravlonb' as never);
-    }, 6000);
-
-    return () => clearTimeout(storiesandlghstravlTimer);
-  }, [navigation]);
+  //useEffect(() => {
+  //  const storiesandlghstravlTimer = setTimeout(() => {
+  //    navigation.navigate('Storiesandlghstravlonb' as never);
+  //  }, 6000);
+//
+  //  return () => clearTimeout(storiesandlghstravlTimer);
+  //}, [navigation]);
 
   return (
     <View style={styles.storiesandlghstravlImageBg}>
