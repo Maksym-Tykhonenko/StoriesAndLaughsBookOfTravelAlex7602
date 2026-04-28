@@ -1,0 +1,57 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/f/Commissioner-Black.ttf",
+      "sha1": "6c1e5adc6e4500144e227b5feda9d35ed4229a71"
+    },
+    {
+      "path": "assets/f/Commissioner-Bold.ttf",
+      "sha1": "c414a5cf0956fd0fa32d105451a27de8cd8ea7dd"
+    },
+    {
+      "path": "assets/f/Commissioner-ExtraBold.ttf",
+      "sha1": "1e03298af490d05e85c5029cc9b278a08ad50fa7"
+    },
+    {
+      "path": "assets/f/Commissioner-Light.ttf",
+      "sha1": "c923dcaafa1670f32950d20da066be1fa1b668ff"
+    },
+    {
+      "path": "assets/f/Commissioner-Medium.ttf",
+      "sha1": "abb49cfa00a20159a62bf78f6455a746b907ba96"
+    },
+    {
+      "path": "assets/f/Commissioner-Regular.ttf",
+      "sha1": "208c2f596f765db1b572edfdc86427337b99cfe5"
+    },
+    {
+      "path": "assets/f/Commissioner-SemiBold.ttf",
+      "sha1": "bcf80691fd27b7d0610a16b413edcfff127ae049"
+    },
+    {
+      "path": "assets/f/Cormorant-Bold.ttf",
+      "sha1": "1a4619dc99a828a930f5c83e6a9412973892eb30"
+    },
+    {
+      "path": "assets/f/Cormorant-Italic.ttf",
+      "sha1": "0916a069d4901e5d9b8b6950bccd143b5dcd23cb"
+    },
+    {
+      "path": "assets/f/Cormorant-Light.ttf",
+      "sha1": "23fefcc7a81c271a7acce29c70984f3308953e8f"
+    },
+    {
+      "path": "assets/f/Cormorant-Medium.ttf",
+      "sha1": "60b70b345a4c2dc06337f1f3a509ac4fbb41bd13"
+    },
+    {
+      "path": "assets/f/Cormorant-Regular.ttf",
+      "sha1": "7f2b1ef72e09e3a124aadb3a672fa8806fdde551"
+    },
+    {
+      "path": "assets/f/Cormorant-SemiBold.ttf",
+      "sha1": "646fb8eef6be06deae8a3200b1cb0f1b9e4f6409"
+    }
+  ]
+}
