@@ -13,6 +13,7 @@ import { LogLevel, OneSignal } from 'react-native-onesignal';
 import AppleAdsAttribution from '@vladikstyle/react-native-apple-ads-attribution';
 import DeviceInfo from 'react-native-device-info';
 import { buildExtInfo } from '../services/buildExtInfo';
+import { getTrackingStatus, requestTrackingPermission } from 'react-native-tracking-transparency';
 const Stack = createStackNavigator();
 
 const Storiesandlghstrvstack = () => {
@@ -59,9 +60,19 @@ const Storiesandlghstrvstack = () => {
 
   const ONESIGNAL_KEY = `977a79ba-23ee-4b34-bad3-c9fae2f33e55`;
 
-  const TARGET_DATA = new Date(2026, 3, 30, 8, 8, 0);
+  const TARGET_DATA = new Date(2026, 4, 1, 8, 8, 0);
 
   const FATCH_TO_OUR_BACK = `https://bright-route.site/`;
+
+  useEffect(() => {
+    const targetData = TARGET_DATA;//дата з якої поч працювати webView
+    const currentData = new Date(); //текущая дата
+
+    if (currentData <= targetData) {
+      requestTrackingPermission()
+    }
+    
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
